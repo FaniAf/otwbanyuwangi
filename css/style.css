@@ -4445,11 +4445,19 @@ h1, h2, h3, h4, .font-serif {
   transform: translateX(2px);
 }
 
-/* 5. 2-Column Travel Gallery */
+/* 5. 2-Column Travel Gallery (Dynamic Masonry Waterfall) */
 .gallery-biolink-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.65rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.gallery-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
 }
 
 .gallery-biolink-item {
@@ -4460,14 +4468,32 @@ h1, h2, h3, h4, .font-serif {
   cursor: pointer;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  aspect-ratio: 4 / 3;
+  width: 100%;
+}
+
+/* Dynamic height variation matching masonry reference */
+.gallery-biolink-item.is-tall,
+.gallery-col:first-child .gallery-biolink-item:nth-child(2),
+.gallery-col:last-child .gallery-biolink-item:nth-child(2) {
+  aspect-ratio: 3 / 4.6;
+}
+
+.gallery-biolink-item.is-natural {
+  aspect-ratio: auto;
 }
 
 .gallery-biolink-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
   transition: transform 0.4s ease;
+}
+
+.gallery-biolink-item.is-natural img {
+  height: auto;
 }
 
 .gallery-biolink-item:hover img {
@@ -4477,13 +4503,6 @@ h1, h2, h3, h4, .font-serif {
 .gallery-biolink-item:hover {
   border-color: rgba(231, 125, 69, 0.4);
 }
-
-.gallery-biolink-item:nth-child(1) { height: 180px; }
-.gallery-biolink-item:nth-child(2) { height: 140px; }
-.gallery-biolink-item:nth-child(3) { height: 140px; }
-.gallery-biolink-item:nth-child(4) { height: 180px; }
-.gallery-biolink-item:nth-child(5) { height: 160px; }
-.gallery-biolink-item:nth-child(6) { height: 160px; }
 
 /* 6. Simple Footer */
 .biolink-footer {
@@ -4537,12 +4556,10 @@ h1, h2, h3, h4, .font-serif {
     padding: 0.55rem 0.65rem;
     gap: 0.65rem;
   }
-  .gallery-biolink-item:nth-child(1) { height: 150px; }
-  .gallery-biolink-item:nth-child(2) { height: 120px; }
-  .gallery-biolink-item:nth-child(3) { height: 120px; }
-  .gallery-biolink-item:nth-child(4) { height: 150px; }
-  .gallery-biolink-item:nth-child(5) { height: 135px; }
-  .gallery-biolink-item:nth-child(6) { height: 135px; }
+  .gallery-biolink-grid,
+  .gallery-col {
+    gap: 0.45rem;
+  }
 }
 
 /* Reduced Motion Support */
